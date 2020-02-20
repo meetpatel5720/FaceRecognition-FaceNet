@@ -7,7 +7,6 @@ import facenet
 from constants import *
 import cv2
 import tensorflow.compat.v1 as tf
-
 tf.disable_v2_behavior()
 
 image_size = 182
@@ -21,7 +20,7 @@ with tf.Graph().as_default():
         HumanNames.sort()
         print(HumanNames)
 
-        print('Loading Modal')
+        print('Loading Model...')
         facenet.load_model(MODEL_PATH)
         images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
         embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
@@ -76,7 +75,7 @@ with tf.Graph().as_default():
                     scaled[i] = facenet.prewhiten(scaled[i])
                     scaled_reshape.append(scaled[i].reshape(-1, input_image_size, input_image_size, 3))
                     feed_dict = {images_placeholder: scaled_reshape[i], phase_train_placeholder: False}
-                    emb_array[0, :] = sess.run(embeddings, feed_dict=feed_dict)
+                    emb_array[0, :] = sess.run  (embeddings, feed_dict=feed_dict)
                     predictions = model.predict_proba(emb_array)
                     print(predictions)
                     best_class_indices = np.argmax(predictions, axis=1)
