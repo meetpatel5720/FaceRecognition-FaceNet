@@ -3,7 +3,7 @@
 This is real time face recognition system based on deep learning and nueral network and implemented using Tensorflow framework. 
 This system is based on FaceNet which is described in ["FaceNet: A Unified Embedding for Face Recognition and Clustering"](http://arxiv.org/abs/1503.03832).
 
-## Direcotry Structure
+## Directory Structure
 ```
 Root
 ├── class
