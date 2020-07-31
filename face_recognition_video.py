@@ -7,6 +7,7 @@ import facenet
 from constants import *
 import cv2
 import tensorflow.compat.v1 as tf
+
 tf.disable_v2_behavior()
 
 image_size = 182
@@ -31,7 +32,7 @@ with tf.Graph().as_default():
         with open(classifier_filename_exp, 'rb') as infile:
             (model, class_names) = pickle.load(infile, encoding='latin1')
 
-        video = cv2.VideoCapture(0)
+        video = cv2.VideoCapture(1)
 
         print('Start Recognition')
         while True:
@@ -71,11 +72,11 @@ with tf.Graph().as_default():
                     cropped[i] = facenet.flip(cropped[i], False)
                     scaled.append(cv2.resize(cropped[i], (image_size, image_size), interpolation=cv2.INTER_LINEAR))
                     scaled[i] = cv2.resize(scaled[i], (input_image_size, input_image_size),
-                                           interpolation=cv2.INTER_CUBIC)
+                                           interpolation=cv2.INTER_LINEAR)
                     scaled[i] = facenet.prewhiten(scaled[i])
                     scaled_reshape.append(scaled[i].reshape(-1, input_image_size, input_image_size, 3))
                     feed_dict = {images_placeholder: scaled_reshape[i], phase_train_placeholder: False}
-                    emb_array[0, :] = sess.run  (embeddings, feed_dict=feed_dict)
+                    emb_array[0, :] = sess.run(embeddings, feed_dict=feed_dict)
                     predictions = model.predict_proba(emb_array)
                     print(predictions)
                     best_class_indices = np.argmax(predictions, axis=1)

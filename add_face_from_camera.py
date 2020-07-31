@@ -13,7 +13,7 @@ NEW_IMAGE_DIR = os.path.join(IMAGE_DIR, name)
 if not os.path.exists(NEW_IMAGE_DIR):
     os.makedirs(NEW_IMAGE_DIR)
 print(NEW_IMAGE_DIR)
-video = cv2.VideoCapture(0)
+video = cv2.VideoCapture(1)
 i = 0
 while i < 30:
     check, frame = video.read()

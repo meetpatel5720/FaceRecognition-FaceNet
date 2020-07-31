@@ -6,7 +6,7 @@ from imutils.face_utils import FaceAligner
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 IMAGE_DIR = os.path.join(BASE_DIR, "images")
 CROPPED_IMAGE_DIR = os.path.join(BASE_DIR, "cropped_img")
-TEST_IMAGE_DIR = os.path.join(BASE_DIR, "test")
+TEST_IMAGE_DIR = os.path.join(BASE_DIR, "test_img")
 
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 # MODEL_PATH = os.path.join(MODEL_DIR, "20170511-185253.pb")
