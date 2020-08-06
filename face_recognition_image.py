@@ -38,7 +38,7 @@ with tf.Graph().as_default():
         # img = cv2.imread(os.path.join(TEST_IMAGE_DIR, "IMG_20200227_1514481.jpg"))
         # img = cv2.resize(img, (int(img.shape[1] / 5), int(img.shape[0] / 5)))
         pil_img = Image.open(os.path.join(TEST_IMAGE_DIR, "IMG_0049.jpg"))
-        pil_img = pil_img.resize((int(pil_img.size[0] / 5), int(pil_img.size[1] / 5)), PIL.Image.ANTIALIAS)
+        # pil_img = pil_img.resize((int(pil_img.size[0] / 5), int(pil_img.size[1] / 5)), PIL.Image.ANTIALIAS)
         img = cv2.cvtColor(numpy.array(pil_img), cv2.COLOR_RGB2BGR)
 
 
@@ -83,30 +83,30 @@ def recognize_faces(image):
             feed_dict = {images_placeholder: scaled_reshape[i], phase_train_placeholder: False}
             emb_array[0, :] = sess.run(embeddings, feed_dict=feed_dict)
             predictions = model.predict_proba(emb_array)
-            print(predictions)
+            # print(predictions)
             best_class_indices = np.argmax(predictions, axis=1)
             best_class_probabilities = predictions[np.arange(len(best_class_indices)), best_class_indices]
             # print("predictions")
             print(best_class_indices, ' with accuracy ', best_class_probabilities)
 
             # print(best_class_probabilities)
-            if best_class_probabilities > 0.15:
+            if best_class_probabilities > 0.20:
                 cv2.rectangle(frame, (bb[i][0], bb[i][1]), (bb[i][2], bb[i][3]), (0, 255, 0),
-                              2)  # boxing face
+                              6)  # boxing face
 
                 # plot result idx under box
                 text_x = bb[i][0]
                 text_y = bb[i][3] + 20
-                print('Result Indices: ', best_class_indices[0])
+                # print('Result Indices: ', best_class_indices[0])
                 # print(HumanNames)
                 for H_i in HumanNames:
                     if HumanNames[best_class_indices[0]] == H_i:
                         result_names = HumanNames[best_class_indices[0]]
                         cv2.putText(frame, result_names, (text_x, text_y), cv2.FONT_HERSHEY_COMPLEX_SMALL,
-                                    1, (0, 0, 255), thickness=1, lineType=2)
+                                    5, (0, 0, 255), thickness=5, lineType=2)
     else:
         print('Alignment Failure')
-
+    frame = cv2.resize(frame, (int(frame.shape[1] / 5), int(frame.shape[0] / 5)))
     return frame
 
 

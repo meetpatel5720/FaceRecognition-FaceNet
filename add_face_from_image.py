@@ -26,7 +26,7 @@ for face in detector(img):
     if not os.path.exists(class_dir):
         os.makedirs(class_dir)
     print(os.path.join(class_dir, str(counter) + "_" + "1" + ".jpg"))
-    local_count = 50
+    local_count = 60
     while local_count > 0:
         cv2.imwrite(os.path.join(class_dir, str(counter) + "_" + str(local_count) + ".jpg"), final_face)
         local_count -= 1
@@ -36,7 +36,6 @@ for face in detector(img):
 
 # ----------------------------------------------------------------------------------
 img = cv2.resize(img, (int(img.shape[1] / 5), int(img.shape[0] / 5)))
-print(counter)
 cv2.imshow("Camera", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
